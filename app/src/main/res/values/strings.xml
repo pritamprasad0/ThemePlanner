@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">HelloWorld</string>
+    <string name="goals">Back</string>
+    <string name="back">Back</string>
+
+    <string name="title_activity_add_new_theme">AddNewThemeActivity</string>
+    <string name="dummy_button">ADD NEW THEME</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="add_new_theme">ADD THEME</string>
+    <string name="add_theme_activity_name_label">Theme Name</string>
+    <string name="add_theme_activity_desc_label">Theme Description</string>
+    <string name="add_new_goal">ADD GOAL</string>
+    <string name="add_goal_activity_name_label">Goal Name</string>
+    <string name="add_goal_activity_desc_label">Goal Description</string>
+</resources>
