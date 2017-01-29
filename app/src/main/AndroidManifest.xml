@@ -19,7 +19,8 @@
         <activity android:name=".Activity.AddNewThemeActivity" />
         <activity android:name=".Activity.TasksActivity" />
         <activity android:name=".Activity.TaskDetailsActivity" />
-        <activity android:name=".Activity.AddNewGoalActivity"></activity>
+        <activity android:name=".Activity.AddNewGoalActivity" />
+        <activity android:name=".Activity.AddNewTaskActivity"></activity>
     </application>
 
 </manifest>

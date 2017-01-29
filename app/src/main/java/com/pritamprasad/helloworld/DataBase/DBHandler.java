@@ -343,12 +343,15 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
 
     @Override
     public Boolean addTask(Task task) {
+        Log.d("DBHandler","Adding task : "+task.getTaskName());
         SQLiteDatabase db = null;
         Boolean status = true;
         try{
             db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(LocalConstants.KEY_TASK_ID,task.getId());
+            if (task.getId() != -1){
+                values.put(LocalConstants.KEY_TASK_ID,task.getId());
+            }
             values.put(LocalConstants.KEY_TASK_NAME,task.getTaskName());
             values.put(LocalConstants.KEY_TASK_DESC,task.getTaskDesc());
             values.put(LocalConstants.KEY_TASK_PARENT_GOAL_ID,task.getParent_goal_id());
@@ -403,7 +406,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
     }
 
     private boolean IsGoalExist(int goal_id) {
-        if(getThemeById(goal_id) != null){
+        if(getGoalById(goal_id) != null){
             return true;
         }
         return false;

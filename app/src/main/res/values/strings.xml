@@ -12,4 +12,7 @@
     <string name="add_new_goal">ADD GOAL</string>
     <string name="add_goal_activity_name_label">Goal Name</string>
     <string name="add_goal_activity_desc_label">Goal Description</string>
+    <string name="add_task_activity_name_label">Task Name</string>
+    <string name="add_task_activity_desc_label">Task Description</string>
+    <string name="add_new_task">ADD TASK</string>
 </resources>

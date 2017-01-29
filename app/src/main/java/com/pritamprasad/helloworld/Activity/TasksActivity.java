@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.pritamprasad.helloworld.CustomArrayAdapter.CustomGoalArrayAdapter;
@@ -24,9 +25,11 @@ public class TasksActivity extends AppCompatActivity {
     private final int DEFAULT_PARENT_GOAL_VALUE = -1;
     private DataBaseHandlerInterface dbHandler = null;
     private ListView taskList;
+    private Button addNewTaskButton;
     private CustomTaskArrayAdapter adapter;
     private ArrayList<Task> list = new ArrayList<>();
     private Intent intent= null;
+    int parentGoalId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +39,9 @@ public class TasksActivity extends AppCompatActivity {
         dbHandler = new DBHandler(this);
         getViews();
         intent = getIntent();
-        int parentGoalId = intent.getIntExtra(LocalConstants.INTENT_TASKSACTIVITY_GOAL_ID,DEFAULT_PARENT_GOAL_VALUE);
+        parentGoalId = intent.getIntExtra(LocalConstants.INTENT_TASKSACTIVITY_GOAL_ID,DEFAULT_PARENT_GOAL_VALUE);
         Log.d("TasksActivity","Got parent Goal Id: "+parentGoalId);
-        list = (ArrayList<Task>) dbHandler.getAllTasksByParentGoalId(parentGoalId);
-        adapter = new CustomTaskArrayAdapter(this,android.R.layout.simple_list_item_1,list);
-        taskList.setAdapter(adapter);
+        refreshTaskListView();
 
         taskList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,10 +53,39 @@ public class TasksActivity extends AppCompatActivity {
                 startActivity(taskIntent);
             }
         });
+
+        addNewTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TasksActivity.this,AddNewTaskActivity.class);
+                startActivityForResult(intent, LocalConstants.REQUESTCODE_ADD_TASK);
+            }
+        });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == LocalConstants.REQUESTCODE_ADD_TASK) {
+            if (resultCode == RESULT_OK) {
+                String task_name = data.getStringExtra(LocalConstants.INTENT_ADD_TASK_TASK_NAME);
+                String task_desc = data.getStringExtra(LocalConstants.INTENT_ADD_TASK_TASK_DESC);
+
+                Log.d("TasksActivity","Received task name : "+task_name);
+                dbHandler.addTask(new Task(task_name,task_desc,parentGoalId));
+                refreshTaskListView();
+            }
+        }
+    }
+
+    private void refreshTaskListView() {
+        list = (ArrayList<Task>) dbHandler.getAllTasksByParentGoalId(parentGoalId);
+        adapter = new CustomTaskArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+        taskList.setAdapter(adapter);
     }
 
     private void getViews() {
         taskList = (ListView)findViewById(R.id.taskListView);
+        addNewTaskButton = (Button)findViewById(R.id.addNewTaskButton);
     }
 
 }

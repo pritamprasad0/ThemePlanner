@@ -14,6 +14,13 @@ public class Task {
 
     }
 
+    public Task(String name, String desc, int parent_id)
+    {
+        this.taskName = name;
+        this.taskDesc = desc;
+        this.parent_goal_id = parent_id;
+    }
+
 
 
     public Task(int id, String name, String desc, int parent_id){
