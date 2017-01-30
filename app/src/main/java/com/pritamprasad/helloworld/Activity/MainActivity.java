@@ -1,8 +1,8 @@
 package com.pritamprasad.helloworld.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,7 +17,6 @@ import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.Model.Theme;
 import com.pritamprasad.helloworld.R;
 import com.pritamprasad.helloworld.Utility.LocalConstants;
-import com.pritamprasad.helloworld.Utility.ToastHandler;
 
 import java.util.ArrayList;
 
@@ -25,10 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView themeList;
     private Button addNewThemeButton;
-    private CustomThemeArrayAdapter adapter;
-    private ArrayList<Theme> list = new ArrayList<>();
     private DataBaseHandlerInterface dbHandler;
-    private ToastHandler toast = new ToastHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * To set initial Data to Database
-     * @param dbHandler
+     * @param dbHandler Database handler
      */
     private void setInitialData(DataBaseHandlerInterface dbHandler) {
         dbHandler.addTheme(new Theme(1,"First Theme", "Description for first theme"));
@@ -106,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshThemeListView() {
         Log.d("MainActivity","Refreshing ListView");
-        list = (ArrayList<Theme>) dbHandler.getAllThemes();
-        adapter = new CustomThemeArrayAdapter(this,R.id.theme_list_item,list);
+        ArrayList<Theme> list = (ArrayList<Theme>) dbHandler.getAllThemes();
+        CustomThemeArrayAdapter adapter = new CustomThemeArrayAdapter(this, R.id.theme_list_item, list);
         themeList.setAdapter(adapter);
     }
 

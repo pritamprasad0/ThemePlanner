@@ -1,7 +1,7 @@
 package com.pritamprasad.helloworld.Model;
 
 /**
- * Created by jarvis on 1/28/17.
+ * Task Data model
  */
 
 public class Task {

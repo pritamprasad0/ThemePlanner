@@ -2,20 +2,20 @@ package com.pritamprasad.helloworld.CustomArrayAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.pritamprasad.helloworld.Model.Goal;
 import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.R;
 
 import java.util.List;
 
 /**
- * Created by jarvis on 1/28/17.
+ * Custom ArrayAdapter
  */
 
 public class CustomTaskArrayAdapter extends ArrayAdapter<Task>{
@@ -32,7 +32,8 @@ public class CustomTaskArrayAdapter extends ArrayAdapter<Task>{
         TextView taskDesc;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //Log.d("CustomTaskArrayAdapter","getView called for position: "+position);
         TaskViewHolder holder;
         Task rowItem = getItem(position);
@@ -47,6 +48,7 @@ public class CustomTaskArrayAdapter extends ArrayAdapter<Task>{
         else{
             holder = (TaskViewHolder)convertView.getTag();
         }
+        assert rowItem != null;
         holder.taskName.setText(rowItem.getTaskName());
         holder.taskDesc.setText(rowItem.getTaskDesc());
         return convertView;

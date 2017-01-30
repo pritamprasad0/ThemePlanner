@@ -2,6 +2,7 @@ package com.pritamprasad.helloworld.CustomArrayAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.pritamprasad.helloworld.R;
 import java.util.List;
 
 /**
- * Created by jarvis on 1/28/17.
+ * Custom ArrayAdapter
  */
 
 public class CustomThemeArrayAdapter extends ArrayAdapter<Theme> {
@@ -31,9 +32,10 @@ public class CustomThemeArrayAdapter extends ArrayAdapter<Theme> {
         TextView themeDesc;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //Log.d("CustomThemeArrayAdapter","getView called for position: "+position);
-        ThemeViewHolder holder = null;
+        ThemeViewHolder holder;
         Theme rowItem = getItem(position);
         LayoutInflater mInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -46,6 +48,7 @@ public class CustomThemeArrayAdapter extends ArrayAdapter<Theme> {
         else{
             holder = (ThemeViewHolder)convertView.getTag();
         }
+        assert rowItem != null;
         holder.themeName.setText(rowItem.getThemeName());
         holder.themeDesc.setText(rowItem.getThemeDesc());
         return convertView;

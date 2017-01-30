@@ -1,7 +1,7 @@
 package com.pritamprasad.helloworld.Model;
 
 /**
- * Created by jarvis on 1/28/17.
+ * Goal Data Model
  */
 
 public class Goal {

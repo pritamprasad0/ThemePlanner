@@ -1,19 +1,17 @@
 package com.pritamprasad.helloworld.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.pritamprasad.helloworld.CustomArrayAdapter.CustomGoalArrayAdapter;
 import com.pritamprasad.helloworld.CustomArrayAdapter.CustomTaskArrayAdapter;
 import com.pritamprasad.helloworld.DataBase.DBHandler;
 import com.pritamprasad.helloworld.DataBase.DataBaseHandlerInterface;
-import com.pritamprasad.helloworld.Model.Goal;
 import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.R;
 import com.pritamprasad.helloworld.Utility.LocalConstants;
@@ -22,13 +20,9 @@ import java.util.ArrayList;
 
 public class TasksActivity extends AppCompatActivity {
 
-    private final int DEFAULT_PARENT_GOAL_VALUE = -1;
     private DataBaseHandlerInterface dbHandler = null;
     private ListView taskList;
     private Button addNewTaskButton;
-    private CustomTaskArrayAdapter adapter;
-    private ArrayList<Task> list = new ArrayList<>();
-    private Intent intent= null;
     int parentGoalId = -1;
 
     @Override
@@ -38,8 +32,9 @@ public class TasksActivity extends AppCompatActivity {
 
         dbHandler = new DBHandler(this);
         getViews();
-        intent = getIntent();
-        parentGoalId = intent.getIntExtra(LocalConstants.INTENT_TASKSACTIVITY_GOAL_ID,DEFAULT_PARENT_GOAL_VALUE);
+        Intent intent = getIntent();
+        int DEFAULT_PARENT_GOAL_VALUE = -1;
+        parentGoalId = intent.getIntExtra(LocalConstants.INTENT_TASKSACTIVITY_GOAL_ID, DEFAULT_PARENT_GOAL_VALUE);
         Log.d("TasksActivity","Got parent Goal Id: "+parentGoalId);
         refreshTaskListView();
 
@@ -78,8 +73,8 @@ public class TasksActivity extends AppCompatActivity {
     }
 
     private void refreshTaskListView() {
-        list = (ArrayList<Task>) dbHandler.getAllTasksByParentGoalId(parentGoalId);
-        adapter = new CustomTaskArrayAdapter(this,android.R.layout.simple_list_item_1,list);
+        ArrayList<Task> list = (ArrayList<Task>) dbHandler.getAllTasksByParentGoalId(parentGoalId);
+        CustomTaskArrayAdapter adapter = new CustomTaskArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         taskList.setAdapter(adapter);
     }
 

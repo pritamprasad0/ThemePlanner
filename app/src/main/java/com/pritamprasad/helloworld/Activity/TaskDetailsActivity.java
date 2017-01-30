@@ -14,9 +14,6 @@ import com.pritamprasad.helloworld.Utility.LocalConstants;
 
 public class TaskDetailsActivity extends AppCompatActivity {
 
-    private final int DEFAULT_PARENT_TASK_VALUE = -1;
-    private DataBaseHandlerInterface dbHandler = null;
-    private Intent intent= null;
     private TextView taskName;
     private TextView taskDesc;
 
@@ -25,10 +22,11 @@ public class TaskDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
 
-        dbHandler = new DBHandler(this);
+        DataBaseHandlerInterface dbHandler = new DBHandler(this);
         getViews();
-        intent = getIntent();
-        int taskId = intent.getIntExtra(LocalConstants.INTENT_TASKSDETAILS_ACTIVITY_TASK_ID,DEFAULT_PARENT_TASK_VALUE);
+        Intent intent = getIntent();
+        int DEFAULT_PARENT_TASK_VALUE = -1;
+        int taskId = intent.getIntExtra(LocalConstants.INTENT_TASKSDETAILS_ACTIVITY_TASK_ID, DEFAULT_PARENT_TASK_VALUE);
         Log.d("TasksActivity","Got parent Goal Id: "+taskId);
 
         Task task = dbHandler.getTaskById(taskId);

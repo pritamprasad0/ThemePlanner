@@ -21,7 +21,6 @@ public class AddNewThemeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_theme);
         getViews();
-
     }
 
     private void getViews() {

@@ -64,8 +64,8 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
 
     /**
      * Add new theme to Database
-     * @param theme
-     * @return
+     * @param theme new theme to add to DB
+     * @return status of theme insertion to DB
      */
     @Override
     public Boolean addTheme(Theme theme){
@@ -85,7 +85,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
             status = false;
         }
         finally {
-            if(db.isOpen()){
+            if (db != null && db.isOpen()) {
                 db.close();
             }
         }
@@ -95,33 +95,30 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
 
     /**
      * Checks if theme already exist in DB or not
-     * @param theme_id
-     * @return
+     * @param theme_id id of theme to check in DB
+     * @return if queried theme exist or not
      */
     private boolean IsThemeExist(int theme_id) {
-        if(getThemeById(theme_id) != null){
-            return true;
-        }
-        return false;
+        return getThemeById(theme_id) != null;
     }
 
     /**
      * Read a new Theme from Database
-     * @param id
-     * @return
+     * @param id id of theme to query
+     * @return theme object having id as id
      */
     @Override
     public Theme getThemeById(int id){
         Log.d("DBHandler", "Getting Theme By id : "+ id);
         Theme resultTheme = null;
-        SQLiteDatabase db = null;
-        Cursor cursor =null;
+        SQLiteDatabase db;
+        Cursor cursor = null;
         try{
             db = this.getReadableDatabase();
             cursor = db.query(LocalConstants.TABLE_THEME, new String[] { LocalConstants.KEY_THEME_ID, LocalConstants.KEY_THEME_NAME, LocalConstants.KEY_THEME_DESC }, LocalConstants.KEY_THEME_ID + "=?",
                     new String[] { String.valueOf(id) }, null, null, null,null);
-            if (cursor.moveToFirst()){
-                resultTheme = new Theme(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+            if (cursor.moveToFirst()) {
+                resultTheme = new Theme(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
             }
             else {
                 Log.e("DBHandler","No Data Found!!!");
@@ -129,25 +126,25 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.e("DBHandler",sqlex.getMessage());
         }
-//        finally {
-//            if(cursor!=null){
-//                cursor.close();
-//            }
+        finally {
+            if(cursor!=null){
+                cursor.close();
+            }
 //            if(db != null){
 //                db.close();
 //            }
-//        }
+        }
         return resultTheme;
     }
 
     /**
      * Get All themes present in DataBase
-     * @return
+     * @return List of all themes in DB
      */
     @Override
     public List<Theme> getAllThemes() {
-        List<Theme> themeList = new ArrayList<Theme>();
-        SQLiteDatabase db=null;
+        List<Theme> themeList = new ArrayList<>();
+        SQLiteDatabase db;
         Cursor cursor = null;
         try{
             String selectQuery = "SELECT * FROM " + LocalConstants.TABLE_THEME;
@@ -162,24 +159,24 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
                     themeList.add(theme);
                 } while (cursor.moveToNext());
             }
-        }catch (SQLException sqlex){
-            Log.d("DBHandler","Error occured at Get All Themes");
+        }catch (SQLException sqlexception){
+            Log.d("DBHandler","Error occurred at Get All Themes");
         }
-//        finally {
+        finally {
 //            if(db!=null){
 //                db.close();
 //            }
-//            if(cursor!=null){
-//                cursor.close();
-//            }
-//        }
+            if(cursor!=null){
+                cursor.close();
+            }
+        }
         return themeList;
     }
 
     /**
      * Add new goal to Database
-     * @param goal
-     * @return
+     * @param goal new goal to add to DB
+     * @return ststus of insertion to DB
      */
     @Override
     public Boolean addGoal(Goal goal){
@@ -207,7 +204,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
             status = false;
         }
         finally {
-            if(db.isOpen()){
+            if (db != null && db.isOpen()) {
                 db.close();
             }
         }
@@ -217,14 +214,14 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
 
     /**
      * Read a new Goal from Database
-     * @param id
-     * @return
+     * @param id id of Goal
+     * @return Goal associated with id
      */
     @Override
     public Goal getGoalById(int id){
         Log.d("DBHandler", "Getting Goal By id : "+ id);
         Goal resultGoal = null;
-        SQLiteDatabase db = null;
+        SQLiteDatabase db;
         Cursor cursor =null;
         try{
             db = this.getReadableDatabase();
@@ -239,26 +236,26 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.e("DBHandler",sqlex.getMessage());
         }
-//        finally {
-//            if(cursor!=null){
-//                cursor.close();
-//            }
+        finally {
+            if(cursor!=null){
+                cursor.close();
+            }
 //            if(db != null){
 //                db.close();
 //            }
-//        }
+        }
         return resultGoal;
     }
 
 
     /**
      * Get All themes present in DataBase
-     * @return
+     * @return List of all goals in DB
      */
     @Override
     public List<Goal> getAllGoals() {
-        List<Goal> goalList = new ArrayList<Goal>();
-        SQLiteDatabase db = null;
+        List<Goal> goalList = new ArrayList<>();
+        SQLiteDatabase db;
         Cursor cursor = null;
         try{
             String selectQuery = "SELECT * FROM " + LocalConstants.TABLE_GOAL;
@@ -277,27 +274,27 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.d("DBHandler","GET ALL goals failed");
         }
-//        finally {
+        finally {
 //            if(db!=null){
 //                db.close();
 //            }
-//            if(cursor!=null){
-//                cursor.close();
-//            }
-//        }
+            if(cursor!=null){
+                cursor.close();
+            }
+        }
         return goalList;
     }
 
     /**
      * Returns list of goals belonging to a theme id
-     * @param parent_theme_id
-     * @return
+     * @param parent_theme_id id of parent theme
+     * @return List of goals associated with parent theme id
      */
     @Override
     public List<Goal> getAllGoalsByParentThemeId(int parent_theme_id){
         Log.d("DBHandler", "Getting all goals in theme id : "+parent_theme_id);
-        List<Goal> goalList = new ArrayList<Goal>();
-        SQLiteDatabase db = null;
+        List<Goal> goalList = new ArrayList<>();
+        SQLiteDatabase db;
         Cursor cursor = null;
         try{
             String selectQuery = "SELECT * FROM " + LocalConstants.TABLE_GOAL +" WHERE "+ LocalConstants.KEY_GOAL_PARENT_THEME_ID+"="+parent_theme_id;
@@ -317,22 +314,15 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.d("DBHandler","GET ALL goals by parent id : "+parent_theme_id+"  failed");
         }
-//        finally {
+        finally {
 //            if (db != null) {
 //                db.close();
 //            }
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
         return goalList;
-    }
-
-    /**
-     * To clean up existing DataBase
-     */
-    public void eraseWholeDatabase(){
-
     }
 
     @Override
@@ -368,7 +358,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
             status = false;
         }
         finally {
-            if(db.isOpen()){
+            if (db != null && db.isOpen()) {
                 db.close();
             }
         }
@@ -379,7 +369,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
     public Task getTaskById(int taskId) {
         Log.d("DBHandler", "Getting Task By id : "+ taskId);
         Task resultTask = null;
-        SQLiteDatabase db = null;
+        SQLiteDatabase db;
         Cursor cursor =null;
         try{
             db = this.getReadableDatabase();
@@ -394,29 +384,26 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.e("DBHandler",sqlex.getMessage());
         }
-//        finally {
-//            if(cursor!=null){
-//                cursor.close();
-//            }
+        finally {
+            if(cursor!=null){
+                cursor.close();
+            }
 //            if(db != null){
 //                db.close();
 //            }
-//        }
+        }
         return resultTask;
     }
 
     private boolean IsGoalExist(int goal_id) {
-        if(getGoalById(goal_id) != null){
-            return true;
-        }
-        return false;
+        return getGoalById(goal_id) != null;
     }
 
     @Override
     public List<Task> getAllTasksByParentGoalId(int parentGoalId) {
         Log.d("DBHandler", "Getting all tasks in goal id : "+parentGoalId);
-        List<Task> taskList = new ArrayList<Task>();
-        SQLiteDatabase db = null;
+        List<Task> taskList = new ArrayList<>();
+        SQLiteDatabase db;
         Cursor cursor = null;
         try{
             String selectQuery = "SELECT * FROM " + LocalConstants.TABLE_TASK +" WHERE "+ LocalConstants.KEY_TASK_PARENT_GOAL_ID+"="+parentGoalId;
@@ -436,14 +423,14 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         }catch (SQLException sqlex){
             Log.d("DBHandler","GET ALL tasks by parent id : "+parentGoalId+"  failed");
         }
-//        finally {
+        finally {
 //            if (db != null) {
 //                db.close();
 //            }
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
         return taskList;
     }
 

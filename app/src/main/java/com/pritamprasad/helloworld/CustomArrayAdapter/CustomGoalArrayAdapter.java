@@ -2,6 +2,7 @@ package com.pritamprasad.helloworld.CustomArrayAdapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import com.pritamprasad.helloworld.R;
 import java.util.List;
 
 /**
- * Created by jarvis on 1/28/17.
+ * Custom ArrayAdapter
  */
 
 public class CustomGoalArrayAdapter extends ArrayAdapter<Goal> {
@@ -31,9 +32,10 @@ public class CustomGoalArrayAdapter extends ArrayAdapter<Goal> {
         TextView goalDesc;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         //Log.d("CustomGoalArrayAdapter","getView called for position: "+position);
-        CustomGoalArrayAdapter.GoalViewHolder holder = null;
+        CustomGoalArrayAdapter.GoalViewHolder holder;
         Goal rowItem = getItem(position);
         LayoutInflater mInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -46,6 +48,7 @@ public class CustomGoalArrayAdapter extends ArrayAdapter<Goal> {
         else{
             holder = (GoalViewHolder)convertView.getTag();
         }
+        assert rowItem != null;
         holder.goalName.setText(rowItem.getGoalName());
         holder.goalDesc.setText(rowItem.getGoalDesc());
         return convertView;

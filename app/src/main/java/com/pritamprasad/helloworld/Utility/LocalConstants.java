@@ -1,7 +1,7 @@
 package com.pritamprasad.helloworld.Utility;
 
 /**
- * Created by jarvis on 1/28/17.
+ * All constants used in project
  */
 
 public class LocalConstants {
