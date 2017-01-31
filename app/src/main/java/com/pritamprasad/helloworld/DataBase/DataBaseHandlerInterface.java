@@ -18,6 +18,13 @@ public interface DataBaseHandlerInterface {
     Boolean addTheme(Theme theme);
 
     /**
+     * Updates an existing theme in DB
+     * @param theme theme object to be updated
+     * @return status of update
+     */
+    Boolean updateTheme(Theme theme);
+
+    /**
      * Read a new Theme from Database
      * @param id id of theme
      * @return theme object
@@ -58,11 +65,6 @@ public interface DataBaseHandlerInterface {
     List<Goal> getAllGoalsByParentThemeId(int parent_theme_id);
 
     /**
-     *
-     */
-    void close();
-
-    /**
      * Returns list of task by parent goal
      * @param parentGoalId parent goal id
      */
@@ -81,4 +83,9 @@ public interface DataBaseHandlerInterface {
      * @return task object
      */
     Task getTaskById(int taskId);
+
+    /**
+     * Closes All DB Connection
+     */
+    void close();
 }

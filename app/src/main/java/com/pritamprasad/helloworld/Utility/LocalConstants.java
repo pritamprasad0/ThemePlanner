@@ -6,6 +6,10 @@ package com.pritamprasad.helloworld.Utility;
 
 public class LocalConstants {
     /**
+     * Default DataType Values
+     */
+    public static final int INVALID_INTEGER_VALUE = -1;
+    /**
      *     Database Version
      */
     public static final int DATABASE_VERSION = 1;
@@ -18,6 +22,7 @@ public class LocalConstants {
     public static final String KEY_THEME_ID = "theme_id";
     public static final String KEY_THEME_NAME = "theme_name";
     public static final String KEY_THEME_DESC = "theme_desc";
+    public static final String KEY_THEME_CURRENT_ACTIVE_GOAL = "theme_current_active_goal";
     /**
      * GOAL Table
      */

@@ -5,7 +5,7 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 /**
- * extension of Toast
+ * Extension of Toast
  */
 
 public class ToastHandler {

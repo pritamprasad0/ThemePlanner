@@ -75,12 +75,50 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         try{
             db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            if (theme.getId() != -1){
+            if (theme.getId() != LocalConstants.INVALID_INTEGER_VALUE){
                 values.put(LocalConstants.KEY_THEME_ID,theme.getId());
             }
             values.put(LocalConstants.KEY_THEME_NAME,theme.getThemeName());
             values.put(LocalConstants.KEY_THEME_DESC,theme.getThemeDesc());
+            if (theme.getCurrent_active_goal() != LocalConstants.INVALID_INTEGER_VALUE){
+                values.put(LocalConstants.KEY_THEME_CURRENT_ACTIVE_GOAL,theme.getCurrent_active_goal());
+            }
             db.insert(LocalConstants.TABLE_THEME,null,values);
+        }catch (SQLException sqlex){
+            status = false;
+        }
+        finally {
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+        return status;
+    }
+
+    /**
+     * Updates an existing theme in DB
+     *
+     * @param theme theme object to be updated
+     * @return status of update
+     */
+    @Override
+    public Boolean updateTheme(Theme theme) {
+        Log.d("DBHandler","Updating theme - name : "+theme.getThemeName());
+        SQLiteDatabase db = null;
+        Boolean status = true;
+        try{
+            db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            if (theme.getId() != LocalConstants.INVALID_INTEGER_VALUE){
+                values.put(LocalConstants.KEY_THEME_ID,theme.getId());
+            }
+            values.put(LocalConstants.KEY_THEME_NAME,theme.getThemeName());
+            values.put(LocalConstants.KEY_THEME_DESC,theme.getThemeDesc());
+            if (theme.getCurrent_active_goal() != LocalConstants.INVALID_INTEGER_VALUE){
+                values.put(LocalConstants.KEY_THEME_CURRENT_ACTIVE_GOAL,theme.getCurrent_active_goal());
+            }
+            db.update(LocalConstants.TABLE_THEME,values,LocalConstants.KEY_THEME_ID + "=?",
+                    new String[]{String.valueOf(theme.getId())});
         }catch (SQLException sqlex){
             status = false;
         }
@@ -115,10 +153,13 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
         Cursor cursor = null;
         try{
             db = this.getReadableDatabase();
-            cursor = db.query(LocalConstants.TABLE_THEME, new String[] { LocalConstants.KEY_THEME_ID, LocalConstants.KEY_THEME_NAME, LocalConstants.KEY_THEME_DESC }, LocalConstants.KEY_THEME_ID + "=?",
+            cursor = db.query(LocalConstants.TABLE_THEME, new String[] { LocalConstants.KEY_THEME_ID,
+                    LocalConstants.KEY_THEME_NAME, LocalConstants.KEY_THEME_DESC,LocalConstants.KEY_THEME_CURRENT_ACTIVE_GOAL },
+                    LocalConstants.KEY_THEME_ID + "=?",
                     new String[] { String.valueOf(id) }, null, null, null,null);
             if (cursor.moveToFirst()) {
-                resultTheme = new Theme(cursor.getInt(0), cursor.getString(1), cursor.getString(2));
+                resultTheme = new Theme(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3));
             }
             else {
                 Log.e("DBHandler","No Data Found!!!");
@@ -156,6 +197,7 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
                     theme.setId(cursor.getInt(0));
                     theme.setThemeName(cursor.getString(1));
                     theme.setThemeDesc(cursor.getString(2));
+                    theme.setCurrent_active_goal(cursor.getInt(3));
                     themeList.add(theme);
                 } while (cursor.moveToNext());
             }
