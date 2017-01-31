@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
      * @param dbHandler Database handler
      */
     private void setInitialData(DataBaseHandlerInterface dbHandler) {
-        dbHandler.addTheme(new Theme(1,"First Theme", "Description for first theme"));
-        dbHandler.addTheme(new Theme(2,"Second Theme", "Description for Second theme"));
-        dbHandler.addTheme(new Theme(3,"Third Theme", "Description for Third theme"));
-        dbHandler.addTheme(new Theme(4,"Fourth Theme", "Description for Fourth theme"));
+        dbHandler.addTheme(new Theme(1,"First Theme", "Description for first theme",LocalConstants.INVALID_INTEGER_VALUE));
+        dbHandler.addTheme(new Theme(2,"Second Theme", "Description for Second theme",LocalConstants.INVALID_INTEGER_VALUE));
+        dbHandler.addTheme(new Theme(3,"Third Theme", "Description for Third theme",LocalConstants.INVALID_INTEGER_VALUE));
+        dbHandler.addTheme(new Theme(4,"Fourth Theme", "Description for Fourth theme",LocalConstants.INVALID_INTEGER_VALUE));
 
         dbHandler.addGoal(new Goal(1,"Goal 1.1","Goal 1.1 Description",1));
         dbHandler.addGoal(new Goal(2,"Goal 1.2","Goal 1.2 Description",1));

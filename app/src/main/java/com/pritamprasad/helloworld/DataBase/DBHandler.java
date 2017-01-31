@@ -32,7 +32,8 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
             String CreateTableTheme="CREATE TABLE "+ LocalConstants.TABLE_THEME+ "(\n" +
                     LocalConstants.KEY_THEME_ID+ "\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
                     LocalConstants.KEY_THEME_NAME+ "\tTEXT NOT NULL,\n" +
-                    LocalConstants.KEY_THEME_DESC+"\tTEXT\n" +
+                    LocalConstants.KEY_THEME_DESC+"\tTEXT,\n" +
+                    LocalConstants.KEY_THEME_CURRENT_ACTIVE_GOAL+ "\tINTEGER\n" +
                     ");";
             db.execSQL(CreateTableTheme);
 
@@ -59,7 +60,10 @@ public class DBHandler extends SQLiteOpenHelper implements DataBaseHandlerInterf
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + LocalConstants.TABLE_THEME);
+        db.execSQL("DROP TABLE IF EXISTS " + LocalConstants.TABLE_GOAL);
+        db.execSQL("DROP TABLE IF EXISTS " + LocalConstants.TABLE_TASK);
+        onCreate(db);
     }
 
     /**
