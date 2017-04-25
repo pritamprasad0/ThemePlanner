@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.pritamprasad.helloworld.CustomArrayAdapter.CustomThemeArrayAdapter;
-import com.pritamprasad.helloworld.DataBase.DBHandler;
-import com.pritamprasad.helloworld.DataBase.DataBaseHandlerInterface;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandlerImpl;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandler;
 import com.pritamprasad.helloworld.Model.Goal;
 import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.Model.Theme;
@@ -24,13 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView themeList;
     private Button addNewThemeButton;
-    private DataBaseHandlerInterface dbHandler;
+    private DataBaseHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHandler = new DBHandler(this);
+        dbHandler = new DataBaseHandlerImpl(this);
         getViews();
         setInitialData(dbHandler);
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
      * To set initial Data to Database
      * @param dbHandler Database handler
      */
-    private void setInitialData(DataBaseHandlerInterface dbHandler) {
+    private void setInitialData(DataBaseHandler dbHandler) {
         dbHandler.addTheme(new Theme(1,"First Theme", "Description for first theme",LocalConstants.INVALID_INTEGER_VALUE));
         dbHandler.addTheme(new Theme(2,"Second Theme", "Description for Second theme",LocalConstants.INVALID_INTEGER_VALUE));
         dbHandler.addTheme(new Theme(3,"Third Theme", "Description for Third theme",LocalConstants.INVALID_INTEGER_VALUE));

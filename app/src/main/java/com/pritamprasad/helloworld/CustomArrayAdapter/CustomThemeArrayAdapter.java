@@ -49,8 +49,8 @@ public class CustomThemeArrayAdapter extends ArrayAdapter<Theme> {
             holder = (ThemeViewHolder)convertView.getTag();
         }
         assert rowItem != null;
-        holder.themeName.setText(rowItem.getThemeName());
-        holder.themeDesc.setText(rowItem.getThemeDesc());
+        holder.themeName.setText(rowItem.getTheme_name());
+        holder.themeDesc.setText(rowItem.getTheme_description());
         return convertView;
     }
 }

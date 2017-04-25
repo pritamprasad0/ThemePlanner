@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.pritamprasad.helloworld.CustomArrayAdapter.CustomTaskArrayAdapter;
-import com.pritamprasad.helloworld.DataBase.DBHandler;
-import com.pritamprasad.helloworld.DataBase.DataBaseHandlerInterface;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandlerImpl;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandler;
 import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.R;
 import com.pritamprasad.helloworld.Utility.LocalConstants;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class TasksActivity extends AppCompatActivity {
 
-    private DataBaseHandlerInterface dbHandler = null;
+    private DataBaseHandler dbHandler = null;
     private ListView taskList;
     private Button addNewTaskButton;
     int parentGoalId = -1;
@@ -30,7 +30,7 @@ public class TasksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
-        dbHandler = new DBHandler(this);
+        dbHandler = new DataBaseHandlerImpl(this);
         getViews();
         Intent intent = getIntent();
         int DEFAULT_PARENT_GOAL_VALUE = -1;

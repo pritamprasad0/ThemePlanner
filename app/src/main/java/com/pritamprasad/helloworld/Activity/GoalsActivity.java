@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.pritamprasad.helloworld.CustomArrayAdapter.CustomGoalArrayAdapter;
-import com.pritamprasad.helloworld.CustomArrayAdapter.CustomThemeArrayAdapter;
-import com.pritamprasad.helloworld.DataBase.DBHandler;
-import com.pritamprasad.helloworld.DataBase.DataBaseHandlerInterface;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandlerImpl;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandler;
 import com.pritamprasad.helloworld.Model.Goal;
-import com.pritamprasad.helloworld.Model.Theme;
 import com.pritamprasad.helloworld.R;
 import com.pritamprasad.helloworld.Utility.LocalConstants;
 
@@ -23,7 +21,7 @@ import java.util.ArrayList;
 public class GoalsActivity extends AppCompatActivity {
 
     private final int DEFAULT_PARENT_THEME_VALUE = -1;
-    private DataBaseHandlerInterface dbHandler = null;
+    private DataBaseHandler dbHandler = null;
     private ListView goalList;
     private Button addNewGoalButton;
     private CustomGoalArrayAdapter adapter;
@@ -35,7 +33,7 @@ public class GoalsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
-        dbHandler = new DBHandler(this);
+        dbHandler = new DataBaseHandlerImpl(this);
         getViews();
         intent = getIntent();
         parentThemeId = intent.getIntExtra(LocalConstants.INTENT_GOALSACTIVITY_THEME_ID,DEFAULT_PARENT_THEME_VALUE);

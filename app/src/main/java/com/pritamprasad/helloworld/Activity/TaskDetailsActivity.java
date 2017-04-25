@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.pritamprasad.helloworld.DataBase.DBHandler;
-import com.pritamprasad.helloworld.DataBase.DataBaseHandlerInterface;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandlerImpl;
+import com.pritamprasad.helloworld.DataBase.DataBaseHandler;
 import com.pritamprasad.helloworld.Model.Task;
 import com.pritamprasad.helloworld.R;
 import com.pritamprasad.helloworld.Utility.LocalConstants;
@@ -22,7 +22,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_details);
 
-        DataBaseHandlerInterface dbHandler = new DBHandler(this);
+        DataBaseHandler dbHandler = new DataBaseHandlerImpl(this);
         getViews();
         Intent intent = getIntent();
         int DEFAULT_PARENT_TASK_VALUE = -1;

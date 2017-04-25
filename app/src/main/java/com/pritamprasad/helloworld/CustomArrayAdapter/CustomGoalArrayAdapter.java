@@ -49,8 +49,8 @@ public class CustomGoalArrayAdapter extends ArrayAdapter<Goal> {
             holder = (GoalViewHolder)convertView.getTag();
         }
         assert rowItem != null;
-        holder.goalName.setText(rowItem.getGoalName());
-        holder.goalDesc.setText(rowItem.getGoalDesc());
+        holder.goalName.setText(rowItem.getGoal_name());
+        holder.goalDesc.setText(rowItem.getGoal_description());
         return convertView;
     }
 }

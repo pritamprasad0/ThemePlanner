@@ -1,5 +1,9 @@
 package com.pritamprasad.helloworld.Model;
 
+import com.pritamprasad.helloworld.Utility.LocalConstants;
+
+import java.util.Date;
+
 /**
  * Task Data model
  */
@@ -9,6 +13,13 @@ public class Task {
     private String taskName;
     private String taskDesc;
     private int parent_goal_id;
+    private Date deadline_date;
+    private int priority;
+    private LocalConstants.TASK_STATES state;
+    private int is_daily_task; // 0: No 1: yes
+    private int estimated_days_required;
+    private LocalConstants.QUADRANT_STATES quadrant_states;
+
 
     public Task(){
 

@@ -1,6 +1,9 @@
 package com.pritamprasad.helloworld.Model;
 
 import com.pritamprasad.helloworld.Utility.LocalConstants;
+import com.pritamprasad.helloworld.Utility.Utility;
+
+import java.util.Date;
 
 /**
  * Theme data model
@@ -8,32 +11,22 @@ import com.pritamprasad.helloworld.Utility.LocalConstants;
 
 public class Theme {
 
-    private int id = LocalConstants.INVALID_INTEGER_VALUE;
-    private String themeName;
-    private String themeDesc;
-    private int current_active_goal = LocalConstants.INVALID_INTEGER_VALUE;
+    private int id;
+    private String theme_name;
+    private String theme_description;
+    private int current_active_goal_id;
+    private Date create_date;
 
     public Theme(){
 
     }
 
-    /**
-     * Non-auto-generating fields constructor
-     * @param name Theme name
-     * @param desc Theme Description
-     */
-    public Theme(String name, String desc)
-    {
-        this.themeName = name;
-        this.themeDesc = desc;
-    }
-
-    public Theme(int id, String name, String desc, int current_active_goal)
-    {
+    public Theme(int id, String theme_name, String theme_description, int current_active_goal_id, Date create_date) {
         this.id = id;
-        this.themeName = name;
-        this.themeDesc = desc;
-        this.current_active_goal = current_active_goal;
+        this.theme_name = theme_name;
+        this.theme_description = theme_description;
+        this.current_active_goal_id = current_active_goal_id;
+        this.create_date = create_date;
     }
 
 
@@ -45,27 +38,35 @@ public class Theme {
         this.id = id;
     }
 
-    public String getThemeName() {
-        return themeName;
+    public String getTheme_name() {
+        return theme_name;
     }
 
-    public void setThemeName(String themeName) {
-        this.themeName = themeName;
+    public void setTheme_name(String theme_name) {
+        this.theme_name = theme_name;
     }
 
-    public String getThemeDesc() {
-        return themeDesc;
+    public String getTheme_description() {
+        return theme_description;
     }
 
-    public void setThemeDesc(String themeDesc) {
-        this.themeDesc = themeDesc;
+    public void setTheme_description(String theme_description) {
+        this.theme_description = theme_description;
     }
 
-    public int getCurrent_active_goal() {
-        return current_active_goal;
+    public int getCurrent_active_goal_id() {
+        return current_active_goal_id;
     }
 
-    public void setCurrent_active_goal(int current_active_goal) {
-        this.current_active_goal = current_active_goal;
+    public void setCurrent_active_goal_id(int current_active_goal_id) {
+        this.current_active_goal_id = current_active_goal_id;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(String create_date) {
+        this.create_date = Utility.StringToDate(create_date);
     }
 }

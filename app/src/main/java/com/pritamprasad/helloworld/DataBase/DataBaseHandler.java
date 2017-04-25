@@ -9,67 +9,19 @@ import java.util.List;
 /**
  * Database Handler interface
  */
-public interface DataBaseHandlerInterface {
+public interface DataBaseHandler {
     /**
      * Add new theme to Database
      * @param theme theme object
      * @return status of insertion
      */
     Boolean addTheme(Theme theme);
-
-    /**
-     * Updates an existing theme in DB
-     * @param theme theme object to be updated
-     * @return status of update
-     */
-    Boolean updateTheme(Theme theme);
-
-    /**
-     * Read a new Theme from Database
-     * @param id id of theme
-     * @return theme object
-     */
-    Theme getThemeById(int id);
-
-    /**
-     * Get All themes present in DataBase
-     * @return List of themes
-     */
-    List<Theme> getAllThemes();
-
     /**
      * Add new goal to Database
      * @param goal goal object
      * @return status of insertion
      */
     Boolean addGoal(Goal goal);
-
-    /**
-     * Read a new Goal from Database
-     * @param id goal id
-     * @return Goalobject
-     */
-    Goal getGoalById(int id);
-
-    /**
-     * Get All themes present in DataBase
-     * @return List of all goals
-     */
-    List<Goal> getAllGoals();
-
-    /**
-     * Returns list of goals belonging to a theme id
-     * @param parent_theme_id parent theme id
-     * @return List of goal associated with parent
-     */
-    List<Goal> getAllGoalsByParentThemeId(int parent_theme_id);
-
-    /**
-     * Returns list of task by parent goal
-     * @param parentGoalId parent goal id
-     */
-    List<Task> getAllTasksByParentGoalId(int parentGoalId);
-
     /**
      * add a new task
      * @param task task object
@@ -78,11 +30,71 @@ public interface DataBaseHandlerInterface {
     Boolean addTask(Task task);
 
     /**
-     * search task by its id
-     * @param taskId task id
-     * @return task object
+     * Updates an existing theme in DB
+     * @param theme theme object to be updated
+     * @return status of update
      */
-    Task getTaskById(int taskId);
+    Boolean updateTheme(Theme theme);
+    /**
+     * Update an existing goal
+     * @param goal
+     * @return
+     */
+    Boolean updateGoal(Goal goal);
+    /**
+     * Update an existing goal
+     * @param task
+     * @return
+     */
+    Boolean updateTask(Task task);
+
+    /**
+     * Read a new Theme from Database
+     * @param id id of theme
+     * @return theme object
+     */
+    Theme getThemeById(int id);
+    /**
+     * Read a new Goal from Database
+     * @param id goal id
+     * @return Goalobject
+     */
+    Goal getGoalById(int id);
+    /**
+     * Read a new Goal from Database
+     * @param id goal id
+     * @return Goalobject
+     */
+    Task getTaskById(int id);
+
+    /**
+     * Get All themes present in DataBase
+     * @return List of themes
+     */
+    List<Theme> getAllThemes();
+    /**
+     * Get All themes present in DataBase
+     * @return List of all goals
+     */
+    List<Goal> getAllGoals();
+    /**
+     * Get All themes present in DataBase
+     * @return List of all goals
+     */
+    List<Task> getAllTasks();
+
+
+    /**
+     * Returns list of goals belonging to a theme id
+     * @param parent_theme_id parent theme id
+     * @return List of goal associated with parent
+     */
+    List<Goal> getAllGoalsByParentThemeId(int parent_theme_id);
+    /**
+     * Returns list of task by parent goal
+     * @param parentGoalId parent goal id
+     */
+    List<Task> getAllTasksByParentGoalId(int parentGoalId);
 
     /**
      * Closes All DB Connection
